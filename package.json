@@ -1,0 +1,44 @@
+{
+  "name": "bilibili-download",
+  "version": "1.0.0",
+  "description": "bilibil视频下载工具",
+  "main": "bin/index.js",
+  "bin": {
+    "bilibili-download": "bin/index.js"
+  },
+  "scripts": {},
+  "keywords": [
+    "bilibili",
+    "download"
+  ],
+  "author": "Michael",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sansui-orz/bilibili-download.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sansui-orz/bilibili-download/issues"
+  },
+  "homepage": "https://github.com/sansui-orz/bilibili-download#readme",
+  "dependencies": {
+    "archive-type": "^4.0.0",
+    "axios": "^0.26.1",
+    "chalk": "^4.1.2",
+    "commander": "^2.20.3",
+    "content-disposition": "^0.5.4",
+    "decompress": "^4.2.1",
+    "download": "^8.0.0",
+    "ext-name": "^5.0.0",
+    "file-type": "^11.1.0",
+    "filenamify": "^3.0.0",
+    "get-stream": "^4.1.0",
+    "got": "^8.3.2",
+    "inquirer": "^8.2.2",
+    "make-dir": "^2.1.0",
+    "p-event": "^2.3.1",
+    "parse-url": "^5.0.7",
+    "pify": "^4.0.1",
+    "progress": "^2.0.3"
+  }
+}
