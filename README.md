@@ -1,12 +1,12 @@
-# bilibili-course-download
+# bilibili2local
 
 bilibili视频命令行下载工具，根据油猴插件修改：https://greasyfork.org/zh-CN/scripts/390952
 
 ## 使用
 
 ```shell
-npm install -g bilibili-course-download
-bilibili-course-download -u https://www.bilibili.com/video/BV1oA411H7Rc?p=19
+npm install -g bilibili2local
+b2l -u https://www.bilibili.com/video/BV1oA411H7Rc?p=19
 ```
 
 ## 参数
@@ -19,4 +19,4 @@ bilibili-course-download -u https://www.bilibili.com/video/BV1oA411H7Rc?p=19
 
 **以上参数也可以不传，不传时，将会在程序运行中请求输入，主要兼容命令行中特殊字符**
 
-![bilibili download](./bilibili-download.gif)
+![bilibili download](./b2l.gif)
