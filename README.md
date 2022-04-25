@@ -17,6 +17,11 @@ b2l -u https://www.bilibili.com/video/BV1oA411H7Rc?p=19
 | -r, -range | 否 | null | 1,30 | 下载集数范围 |
 | -o, -output | 否 | dist | video | 输出文件夹 |
 
-**以上参数也可以不传，不传时，将会在程序运行中请求输入，主要兼容命令行中特殊字符**
+**-u -r 参数不传，将会在程序运行中请求输入，主要兼容命令行中特殊字符**
 
 ![bilibili download](./b2l.gif)
+
+## 其他
+
+1. 在window的git Bash中不支持显示下载进度条，问题是`progress`不兼容
+2. node version > 12

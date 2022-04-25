@@ -1,6 +1,6 @@
 {
   "name": "bilibili2local",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "bilibil视频下载工具",
   "main": "bin/index.js",
   "bin": {
@@ -28,7 +28,6 @@
     "commander": "^2.20.3",
     "content-disposition": "^0.5.4",
     "decompress": "^4.2.1",
-    "download": "^8.0.0",
     "ext-name": "^5.0.0",
     "file-type": "^11.1.0",
     "filenamify": "^3.0.0",

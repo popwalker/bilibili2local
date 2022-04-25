@@ -14,22 +14,26 @@ const pkgConfig = require('../package.json');
 let options;
 
 async function start() {
-  options = program.opts();
-  let uri = options.uri;
-  if (!uri) {
-    const { inputUri } = await inquirer.prompt([
-      {
-        type: 'input',
-        message: '请输入url\n',
-        name: 'inputUri'
-      }
-    ]);
-    uri = inputUri;
+  try {
+    options = program.opts();
+    let uri = options.uri;
+    if (!uri) {
+      const { inputUri } = await inquirer.prompt([
+        {
+          type: 'input',
+          message: '请输入url\n',
+          name: 'inputUri'
+        }
+      ]);
+      uri = inputUri;
+    }
+    const urlObj = parseUrl(uri);
+    const bv = getBv(urlObj.pathname);
+    await downloadMultiVideo(bv, urlObj);
+    process.exit(0);
+  } catch (error) {
+    console.log(chalk.red('发生错误: ', error))
   }
-  const urlObj = parseUrl(uri);
-  const bv = getBv(urlObj.pathname);
-  await downloadMultiVideo(bv, urlObj);
-  process.exit(0);
 }
 
 async function downloadMultiVideo(bv, urlObj) {
@@ -61,7 +65,7 @@ async function downloadVideo(bv, urlObj, list, index) {
   const target = list[index];
   const videoSource = await axios.get(`https://api.bilibili.com/x/player/playurl?bvid=${bv}&cid=${target.cid}&qn=112`);
   const downloadUrl = videoSource.data.data.durl[0].url;
-  console.log(chalk.blue(`开始下载 ${target.page}_${target.part}`));
+  console.log(chalk.blue(`开始下载 ${target.page} ${target.part}`));
   let bar;
   await download(downloadUrl, path.resolve('./', options.output || 'dist'), {
     filename: `${target.page}_${target.part}.flv`,
@@ -75,14 +79,18 @@ async function downloadVideo(bv, urlObj, list, index) {
      * @param {{ percent: number; transferred: number; total: number; }} param0 
      */
     onDownloadProgress({ percent, total }) {
-      if (!bar) {
-        bar = new ProgressBar(`下载进度: [:bar] :rate/bps :percent :etas`, {
-          width: 50,
-          total: total,
-          renderThrottle: 500
-        });
+      try {
+        if (!bar) {
+          bar = new ProgressBar(`[:bar] :rate/bps :percent :etas`, {
+            width: 30,
+            total: total,
+            renderThrottle: 500
+          });
+        }
+        bar.update(percent);
+      } catch (err) {
+        console.log('err => ', err)
       }
-      bar.update(percent);
     }
   });
   if (list[index + 1]) {
@@ -109,9 +117,9 @@ function getBv(pathname) {
 program
   .version(pkgConfig.version)
   .option('-v, --version', '查看版本号')
-  .option('-u, --uri <type>', 'bilibili多p视频uri')
+  .option('-u, --uri <type>', 'bilibili网页url')
   .option('-r, --range <type>', '下载范围 例下载第三集到第三十集(包含): 3,30')
   .option('-o, --output <type>', '输出文件夹，默认为dist')
-  .description('前端组件模版初始化工具，快速生成模版代码')
+  .description('bilibili视频下载命令行工具')
   .action(start);
 program.parse(process.argv);
